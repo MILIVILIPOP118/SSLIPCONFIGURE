@@ -1,8 +1,8 @@
-Создаем директорию для хранения файлов.
+Создаем директорию для хранения файлов:
   mkdir ssl 
   mkdir ssl/private
 
-Переходи в директорию
+Переходим в директорию:
   cd ssl # Eсли при входе вы не изменяли директорию, то путь будет выглядить "/home/<имя_пользователя>/ssl/" или "/root/ssl/".
 
 Генерируем самоподписанный корневой SSL сертификат, используя утилиту OpenSSL:
@@ -12,18 +12,18 @@
   cp /private/cert.pem /etc/pki/ca-trust/source/anchors
   update-ca-trust
 
-Выпускаем сертификат, при запросах CN/Common Name/host и подобных, пишем IP CentOS:
+Выпускаем сертификат, при запросах CN/Common Name/host и подобных, пишем IP CentOS-а:
   openssl genrsa -out domain.key 2048 
   openssl req -new -key domain.key -out domain.csr 
   openssl x509 -req -in domain.csr -CA cert.pem -CAkey /private/key.pem -CAcreateserial -out domain.crt -days 365
 
 Изменяем настройки SSL в конфигурационном файле: 
-  5.1 Изменяем имя хоста: 
+  Изменяем имя хоста: 
     server { 
     ... listen 443 ssl; 
     server_name <IP_CentOS>; 
     ...
 
-  5.2 Изменяем путь до файлов сертификатов: 
+  Изменяем путь до файлов сертификатов: 
     ssl_certificate /<путь_из_пункта_2>/domain.crt; 
     ssl_certificate_key /<путь_из_пункта_2>/domain.key;
