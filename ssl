@@ -17,7 +17,7 @@
   openssl req -new -key domain.key -out domain.csr 
   openssl x509 -req -in domain.csr -CA cert.pem -CAkey /private/key.pem -CAcreateserial -out domain.crt -days 365
 
-Изменяем настройки SSL в конфигурационный файл: 
+Изменяем настройки SSL в конфигурационном файле: 
   5.1 Изменяем имя хоста: 
     server { 
     ... listen 443 ssl; 
